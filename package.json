@@ -1,8 +1,8 @@
 {
   "name": "@sepoina/vitetranslate-rollup",
-  "version": "1.0.893",
+  "version": "1.0.894",
   "private": false,
-  "module": "dist/index.js",
+  "module": "dist/index.cjs",
   "description": "Rollup and babel plugin for vitetranslate-components.",
   "author": {
     "name": "Giancarlo Ghigi",
@@ -10,7 +10,7 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.cjs",
       "require": "./dist/index.cjs"
     }
   },
@@ -53,15 +53,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@vitejs/plugin-react": "^4.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite": "^5.0.10",
-    "vite-plugin-node-polyfills": "^0.18.0"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "vite": "^5.0.10"
   },
   "dependencies": {
     "fnv1a": "^1.1.1"

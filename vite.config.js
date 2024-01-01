@@ -10,19 +10,19 @@ export default defineConfig ({
   build: {
     sourcemap:true,
     lib: {
-      entry: resolve(__dirname, "src/index.jsx"),
+      entry: resolve(__dirname, "src/index.js"),
       name: "@sepoina/vitetranslate-rollup",   		 
       fileName: "index",
+      formats: ['cjs'],
     },
     rollupOptions: {
-      external: ["react", "react-dom","path", "fs"],
+      external: ["path", "fs"],
       output: {
         globals: {
           "path":"path",
-          "fs":"fs",
-          "react": "React",
-          "react-dom": "ReactDOM",
+          "fs":"fs"
         },
-      },},
+      },
+    },
   },
 });
