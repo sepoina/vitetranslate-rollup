@@ -13,7 +13,18 @@ diviene se viene servita la lingua 'ko'
 ## Demo
 Una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) è visibile su stackblitz 
 
+## Installazione
 
+via npm
+```bash
+ npm install @sepoina/vitetranslate-rollup --save-dev
+ npm install @sepoina/vitetranslate-components 
+```
+via yarn
+```bash
+ yarn add @sepoina/vitetranslate-rollup -D
+ yarn add @sepoina/vitetranslate-components
+```
 
 ## TODO
 - cache system
