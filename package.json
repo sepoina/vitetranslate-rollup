@@ -1,6 +1,6 @@
 {
   "name": "@sepoina/vitetranslate-rollup",
-  "version": "1.0.894",
+  "version": "1.0.902",
   "private": false,
   "module": "dist/index.cjs",
   "description": "Rollup and babel plugin for vitetranslate-components.",

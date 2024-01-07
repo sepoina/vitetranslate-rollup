@@ -2,6 +2,8 @@ import getChildrenText from "./getChildrenText";
 import getVariableProps from "./getVariableProps";
 import pathCmd from "path";
 import hash from "fnv1a";
+// import isProduction from "../isProduction";
+
 
 //
 // se in input trova un _%_testo_%_
@@ -9,10 +11,10 @@ import hash from "fnv1a";
 // e trasforma "_%_testo_%_" in "_<_id_#_testo_>_"
 //
 function ifStaticAddTable(p, state) {
+  // console.log("status:",import.meta.env);
   if (!p?.node?.value) return; // non trova l'oggetto
   if (!/_%_(.*?)_%_/.test(p.node.value)) return; // non trova il riconoscitore
   const strToAdd = /_%_(.*?)_%_/.exec(p.node.value)?.[1];
-  if (!strToAdd) return; // è vuota o nulla
   //  console.log("trovato da rimpiazzare:", p.node.value);
   const data_translate = addToTable(strToAdd, state);
   p.node.value = getReplacedForTranslate(
@@ -41,6 +43,7 @@ function getReplacedForTranslate(value, data_translate, text) {
   return value.replace(/_%_(.*?)_%_/, newString);
 }
 
+// aggiunge alla tabella temporanea
 function addToTable(strToAdd, state) {
   //
   //
@@ -60,6 +63,7 @@ function addToTable(strToAdd, state) {
   return data_translate; // id
 }
 
+
 export default api => {
   const { types: t } = api;
 
@@ -69,31 +73,31 @@ export default api => {
       StringLiteral: ifStaticAddTable,
       JSXText: ifStaticAddTable,
       TemplateElement: ifStaticAddTable,
-      JSXOpeningElement(path, state) {
+      JSXOpeningElement(p, state) {
         //
         // prova ad aprirlo... è translate? se no torna
-        if (path.node.name.name !== "Translate") return;
+        if (p.node.name.name !== "Translate") return;
         //
         // ha giù la props data-translate? torna
-        const existingProp = path.node.attributes.find(
+        const existingProp = p.node.attributes.find(
           node => node?.name?.name === "data-translate"
         );
         if (existingProp) return;
         //
         // se contiene c come props la traduzione è differita, ritorna
         //
-        if (path.node.attributes.find(n => n?.name.name === "c")) return;
+        if (p.node.attributes.find(n => n?.name.name === "c")) return;
         //
         // se ha un props chiamato 't' lo carica altrimenti carica il contenuto
         // dei children, se nessuno dei due ha un text mostra un errore
-        const textInternal = path.node.attributes.find(
+        const textInternal = p.node.attributes.find(
           node => node?.name?.name === "t"
         );
         const text = textInternal
-          ? getVariableProps("t", path)
-          : getChildrenText(path);
+          ? getVariableProps("t", p)
+          : getChildrenText(p);
         if (text === false)
-          throw "Errore, Translate deve contenere solo stringhe";
+          throw "Error, Translate require constant string";
         //
         // aggiunge alla tabella
         const data_translate = addToTable(text, state);
@@ -101,7 +105,7 @@ export default api => {
           t.jSXIdentifier("data-translate"),
           t.stringLiteral(data_translate)
         );
-        path.node.attributes.push(newProp);
+        p.node.attributes.push(newProp);
       },
     },
   };

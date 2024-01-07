@@ -1,4 +1,6 @@
 import fs from "fs";
+import isProduction from "../isProduction";
+import pathCmd from 'path';
 
 export default function rollupTranslate(defs) {
   return {
@@ -14,14 +16,14 @@ export default function rollupTranslate(defs) {
         globalThis["TranslateService"].baseLng = {
           __lngVersion__: CalcolaVersion(),
         }; // spazio vuoto per gli elementi
-        console.log("Preparo il servizio traduzioni.");
+        if (!isProduction()) console.log("\n::: Vite-Translate: Start translate service in development mode, not update translation table file, make a new build for this\n");
       },
     },
     buildEnd: {
       sequential: true,
       order: "post",
       handler: () => {
-        updateFileLanguage();
+        if (isProduction()) updateFileLanguage();
       },
     },
   };
@@ -44,16 +46,32 @@ export default function rollupTranslate(defs) {
  */
 function updateFileLanguage() {
   // Specifica il percorso del tuo file JSON
-  const filePath = globalThis["TranslateService"].file;
-  const distPath = globalThis["TranslateService"].dist;
-  console.log("TRANSLATE ---------------------------------------------");
-  console.log("Carico traduzione base.");
+  // pathCmd.join(__dirname, 'public', 'locale', PredefinedLanguage)
+  /* 
+  
+  Format  globalThis["TranslateService"]
+  {  
+      PredefinedLanguage:'it.json',     // predefined file usual 'xx.json' where xx iso 639-1 -> is https://en.wikipedia.org/wiki/ISO_639-1
+      baseDir:__dirname,                // workspace dir, contain src, public and dist folder
+      publicTableDir: ['public','locale'],  // source public file before rollup usual {workspace}/public/locale/PredefinedLanguage.json
+      distTableDir: ['dist','locale'],      // distribution file after rollup usual {workspace}/dist/locale/PredefinedLanguage.json
+  }
+  
+  */
+
+  const filePath = pathCmd.join(globalThis["TranslateService"].baseDir, ...globalThis["TranslateService"].publicTableDir, globalThis["TranslateService"].PredefinedLanguage);
+  const distPath = pathCmd.join(globalThis["TranslateService"].baseDir, ...globalThis["TranslateService"].distTableDir, globalThis["TranslateService"].PredefinedLanguage);
+  const shortFilePath = pathCmd.join(...globalThis["TranslateService"].publicTableDir, globalThis["TranslateService"].PredefinedLanguage);
+  const shortDistPath = pathCmd.join(...globalThis["TranslateService"].distTableDir, globalThis["TranslateService"].PredefinedLanguage);
+
+  console.log("| Vite-Translate ---------------------------------------------");
+  console.log("| Load base translation table from ", shortFilePath);
   try {
     fs.readFile(filePath, "utf8", (err, data) => {
       let state = { newest: true, changed: true },
         baseData = null;
       if (err) {
-        console.log(`Non esiste ancora il file ${filePath}, tento di crearlo`);
+        console.log(`| The file ${shortFilePath} not exist, i make new one.`);
         baseData = globalThis["TranslateService"].baseLng; // questi i dati
       } else {
         baseData = JSON.parse(data);
@@ -62,37 +80,36 @@ function updateFileLanguage() {
       }
       if (state.changed) {
         // sono avvenute variazioni, salva
-        const stats = state.newest
-          ? "Nuovo file,"
-          : `(${state.added} agginte, ${state.deleted} rimosse)`;
-        console.log(`Update avvenuto: ${stats} salvo.`);
+        console.log(state.newest
+          ? "| Create new file."
+          : `| Update: (${state.added} added, ${state.deleted} removed)`);
         fs.writeFile(
           filePath,
           JSON.stringify(baseData, null, 2),
           "utf8",
           err => {
             if (err) {
-              console.error(`Errore durante la scrittura su ${filePath}`, err);
+              console.error(`| Error writing over ${shortFilePath}`, err);
             } else {
-              console.log(`Dati scritti con successo su ${filePath}`);
+              console.log(`| Correct writing operation ${shortFilePath}`);
               fs.copyFile(filePath, distPath, err => {
-                if (!err) console.log(`Copiato con successo su ${distPath}`);
+                if (!err) console.log(`| Correct copy to ${shortDistPath}`);
                 console.log(
-                  "END TRANSLATE ---------------------------------------------"
+                  "| ------------------------------------------------------------"
                 );
               });
             }
           }
         );
       } else {
-        console.log("Nessun cambiamento.");
+        console.log("| Nothing change.");
         console.log(
-          "END TRANSLATE ---------------------------------------------"
+          "| ------------------------------------------------------------"
         );
       }
     });
   } catch (error) {
-    console.error(`Errore l'elaborazione di ${filePath}, cancellalo`, error);
+    console.error(`| Error in ${filePath}, erase this file and restart build.`, error);
     return;
   }
 }
