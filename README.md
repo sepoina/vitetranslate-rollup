@@ -17,11 +17,13 @@ Una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.
 
 via npm
 ```bash
- npm add @sepoina/vitetranslate-rollup
+ npm install @sepoina/vitetranslate-rollup --save-dev
+ npm install @sepoina/vitetranslate-components 
 ```
 via yarn
 ```bash
- yarn install @sepoina/vitetranslate-rollup
+ yarn add @sepoina/vitetranslate-rollup -D
+ yarn add @sepoina/vitetranslate-components
 ```
 
 ## Ambiente Vite
