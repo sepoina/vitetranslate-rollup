@@ -27,7 +27,7 @@ via yarn
 ```
 
 ## Ambiente Vite
-E' necessario l'ambiente vite-react per l'esecuzione del codice.
+E' necessario l'ambiente vite-react per l'esecuzione del codice.<br/>
 questo un esempio di implementazione in vite.config.js [vedi quello della demo](https://stackblitz.com/edit/vitejs-vite-reqsax?file=vite.config.js)
 ```js
 import { defineConfig } from 'vite';
