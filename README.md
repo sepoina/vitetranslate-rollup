@@ -13,11 +13,8 @@ diviene se viene servita la lingua 'ko'
 ## Demo
 Una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) è visibile su stackblitz 
 
+## Ambiente Vite
+E' necessario l'ambiente vite-react per l'esecuzione del codice.
+
 ## TODO
-- Aggiungere funzioni di controllo del cambio lingua
-   funzione handleWantChange({
-    propose:'it',
-    onStart: () => {}
-    onError: () => {}
-   })
-- Eliminare il rollup in caso di non build
+- cache system
