@@ -7,7 +7,7 @@ E' parte di un duo, rollup e components che consentono un servizio di traduzioni
 
 diviene se viene servita la lingua 'ko'
 ```jsx
- <span></span>
+ <span>예시</span>
 ```
 
 ## TODO
