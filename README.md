@@ -13,8 +13,11 @@ diviene se viene servita la lingua 'ko'
 ## Demo
 Una [demo semplice](https://stackblitz.com/edit/vitejs-vite-ygyyax?file=src%2Fmain.jsx) e una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) sono visibili su stackblitz 
 
-## Installazione
+## Installazione locale
+Segui queste istruzioni per una procedura passo passo per un test locale
+[istruzioni](https://github.com/sepoina/vitetranslate-rollup/wiki/Local-Demo)
 
+## Installazione
 via npm
 ```bash
  npm install @sepoina/vitetranslate-rollup --save-dev
