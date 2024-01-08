@@ -11,7 +11,7 @@ diviene se viene servita la lingua 'ko'
 ```
 
 ## Demo
-Una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) è visibile su stackblitz 
+Una [demo semplice](https://stackblitz.com/edit/vitejs-vite-ygyyax?file=src%2Fmain.jsx) e una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) sono visibili su stackblitz 
 
 ## Installazione
 
