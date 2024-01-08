@@ -14,8 +14,7 @@ diviene se viene servita la lingua 'ko'
 Una [demo semplice](https://stackblitz.com/edit/vitejs-vite-ygyyax?file=src%2Fmain.jsx) e una [demo complessa](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) sono visibili su stackblitz 
 
 ## Demo in locale
-Segui queste istruzioni per una procedura passo passo per un test locale
-[istruzioni](https://github.com/sepoina/vitetranslate-rollup/wiki/Local-Demo)
+Segui queste istruzioni per una procedura passo passo per creare in 10 minuti un [test in locale](https://github.com/sepoina/vitetranslate-rollup/wiki/Local-Demo)
 
 ## Installazione delle librerie
 
