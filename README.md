@@ -9,6 +9,7 @@ transforms, when the language 'ko' is served:
 ```jsx
  <span>예시</span>
 ```
+Details: [Translate,TranslateContainer,TranslateContext](https://github.com/sepoina/vitetranslate-rollup/wiki/Translate,-TranslateContainer,-TranslateContext)
 
 ## Demo
 A [simple demo](https://stackblitz.com/edit/vitejs-vite-ygyyax?file=src%2Fmain.jsx) and a [complex demo](https://stackblitz.com/edit/vitejs-vite-reqsax?file=README.md) are available on StackBlitz.
